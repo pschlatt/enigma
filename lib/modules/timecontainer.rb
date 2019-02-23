@@ -1,3 +1,0 @@
-module TimeContainer
-
-end
