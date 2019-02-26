@@ -14,4 +14,6 @@ class KeyGen
       @key.join
     end
   end
+
+  
 end
