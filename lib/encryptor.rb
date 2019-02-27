@@ -75,13 +75,7 @@ include KeyGen
           rotate_by_four(four_letters, total_shift)}.join
     end
 
-    def total_decryption(message, key, date)
-      working_keys = set_keys(key)
-      working_offsets = set_offset(date)
-      total_shift = complete_backwards_shift(working_keys, working_offsets)
-      group_together(message).map {|four_letters|
-        rotate_by_four(four_letters, total_shift)}.join
-    end
+    
 
 
 end
