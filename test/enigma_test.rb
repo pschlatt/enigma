@@ -1,10 +1,6 @@
 require "./test/test_helper"
-require './lib/encryptor'
-require './lib/keygen'
 
 class EnigmaTest < Minitest::Test
-include Encryptor
-include KeyGen
 
   def setup
     @enigma = Enigma.new
@@ -14,6 +10,10 @@ include KeyGen
 
   def test_for_instance
     assert_instance_of Enigma, @enigma
+  end
+
+  def test_for_randomkey
+    assert_equal 5, @enigma.randomkey.length
   end
 
   def test_char_set
@@ -29,7 +29,6 @@ include KeyGen
 
 
   def test_encrypt
-    skip
     expected = {
      encryption: "keder ohulw",
      key: "02715",
@@ -134,18 +133,15 @@ include KeyGen
   end
 
   def test_encrypt_todays_date_and_random_key
-    expected = {
-     encryption: "hello world",
-     key: randomkey,
-     date: @date
-    }
-    assert_equal expected, @enigma.encrypt("hello world")
+    assert_equal String, @enigma.encrypt("it'ya boi, paul", @enigma.randomkey, @date)[:encryption].class
+    returned = @enigma.encrypt("it'ya boi, paul", "02715", @date)[:encryption].length
+    assert_equal 15, returned
   end
 
-  def test_for_randomkey
-    assert_equal 5, @enigma.randomkey.length
+  def test_decrypt_todays_date_and_random_key
+   assert_equal String, @enigma.decrypt("do not please", @enigma.randomkey, @date)[:decryption].class
+   returned = @enigma.decrypt("do not please", "02715", @date)[:decryption].length
+   assert_equal 13, returned
   end
-
-
 
 end

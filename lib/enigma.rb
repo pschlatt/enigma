@@ -15,9 +15,10 @@ def initialize
   @date_test = "040895"
   @message = "hello world"
   @alphabet = ("a".."z").to_a << " "
+  @key = randomkey
 end
 
-  def encrypt(message = @message.downcase, key = randomkey, date = @date)
+  def encrypt(message = @message.downcase, key = @key, date = @date)
       {
       encryption: total_encryption(message, key, date),
       key: key,
@@ -25,7 +26,7 @@ end
       }
   end
 
-  def decrypt(ciphertext = @message.downcase, key = @randomkey, date = @date)
+  def decrypt(ciphertext = @message.downcase, key = @key, date = @date)
   {
     decryption: total_decryption(ciphertext, key, date),
     key: key,
