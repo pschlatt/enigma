@@ -2,7 +2,7 @@ require './lib/enigma'
 
 enigma_in = Enigma.new
 key = "82648"
-date = "040895"
+date = "240818"
 
 
 reader = ARGV[0]
