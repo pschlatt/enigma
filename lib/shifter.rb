@@ -1,4 +1,3 @@
-
 module Shifter
 
   def set_keys(key = randomkey)
