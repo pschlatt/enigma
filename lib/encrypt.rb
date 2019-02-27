@@ -81,22 +81,5 @@ module Encrypt
     end
 
 
-  # def encrypt_message(message = "hello world", key = set_keys, date = set_offset)
-  #   split_message = message.downcase.split(//)
-  #   encrypted_message = []
-  #   total_shift = complete_shift(set_key_hash, set_offset_hash)
-  #   split_message.each_with_index do |letter, index|
-  #       if index % 4 == 0
-  #     encrypted_message << encrypt_letter(letter, total_shift[:a])
-  #   elsif index % 4 == 1
-  #     encrypted_message << encrypt_letter(letter, total_shift[:b])
-  #   elsif index % 4 == 2
-  #     encrypted_message << encrypt_letter(letter, total_shift[:c])
-  #   elsif index % 4 == 3
-  #     encrypted_message << encrypt_letter(letter, total_shift[:d])
-  #     end
-  #   end
-  #   encrypted_message.join
-  # end
-#
+ 
 end
