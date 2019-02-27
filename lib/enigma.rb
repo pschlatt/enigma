@@ -1,9 +1,11 @@
 require './test/test_helper'
 require './lib/encryptor'
+require './lib/keygen'
 
 class Enigma
 
   include Encryptor
+  include KeyGen
 
   attr_reader :alphabet,
               :date
@@ -11,12 +13,11 @@ def initialize
   @time = Time.new
   @date = @time.strftime("%d%m%y")
   @date_test = "040895"
-  @randomkey = "02715"
   @message = "hello world"
   @alphabet = ("a".."z").to_a << " "
 end
 
-  def encrypt(message = @message.downcase, key = @randomkey, date = @date)
+  def encrypt(message = @message.downcase, key = randomkey, date = @date)
       {
       encryption: total_encryption(message, key, date),
       key: key,

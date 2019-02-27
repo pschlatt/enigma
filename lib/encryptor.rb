@@ -1,42 +1,22 @@
 require './test/test_helper'
-
-
-
-
-
-
-
-
-
-
-
+require './lib/keygen'
 
 module Encryptor
 
+include KeyGen
 
   def setup
-    @random = Random.new
-    @key = @random.rand(0..99999).to_s.split("")
+    # @random = Random.new
+    # @key = @random.rand(0..99999).to_s.split("")
     # @key = "02715"
     @date = "040895"
     @alphabet = ("a".."z").to_a << " "
   end
 
-  # def randomkey
-  #   if @key.length < 5
-  #     @key.join.rjust(5, "0")
-  #   else
-  #     @key.join
-  #   end
-  # end
-  def randomkey
-
-    rand(0..99999).to_s.rjust(5, "0")
-    
-  end
 
 
-  def set_keys(key = @key)
+
+  def set_keys(key = randomkey)
     key = key.split(//).each_cons(2).to_a
     join_keys = key.map {|var| var.join}
     join_keys.map { |string| string.to_i }

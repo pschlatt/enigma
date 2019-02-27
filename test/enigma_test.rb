@@ -1,7 +1,10 @@
 require "./test/test_helper"
 require './lib/encryptor'
+require './lib/keygen'
 
 class EnigmaTest < Minitest::Test
+include Encryptor
+include KeyGen
 
   def setup
     @enigma = Enigma.new
@@ -128,6 +131,15 @@ class EnigmaTest < Minitest::Test
      date: @date
     }
     assert_equal expected, @enigma.decrypt("qnhaxisd u ", "02715", @date)
+  end
+
+  def test_encrypt_todays_date_and_random_key
+    expected = {
+     encryption: "hello world",
+     key: randomkey,
+     date: @date
+    }
+    assert_equal expected, @enigma.encrypt("hello world")
   end
 
   def test_for_randomkey
