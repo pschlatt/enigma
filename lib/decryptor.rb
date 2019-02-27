@@ -1,10 +1,5 @@
-require './test/test_helper'
-require './lib/keygen'
-require './lib/encryptor'
 
 module Decryptor
-  include Encryptor
-  include KeyGen
 
   def complete_backwards_shift(key, offset)
      back_key = []

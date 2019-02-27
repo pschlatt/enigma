@@ -7,24 +7,15 @@ module Encryptor
   end
 
 
-    def letter_encryptor(letter, number)
-      if @alphabet.include?(letter)
-        index = @alphabet.find_index(letter)
-        shifted_char = @alphabet.rotate(number)
-        shifted_char[index]
-      else
-        letter
-      end
+  def letter_encryptor(letter, number)
+    if @alphabet.include?(letter)
+      index = @alphabet.find_index(letter)
+      shifted_char = @alphabet.rotate(number)
+      shifted_char[index]
+    else
+      letter
     end
-
-    def rotate_by_four(letters, numbers)
-      letters.map.with_index {|letter, index|
-        letter_encryptor(letter, numbers[index])}
-    end
-
-    def group_together(message)
-      message.split(//).each_slice(4).to_a
-    end
+  end
 
     def total_encryption(message, key, date)
         working_keys = set_keys(key)
@@ -33,8 +24,5 @@ module Encryptor
         group_together(message).map {|four_letters|
           rotate_by_four(four_letters, total_shift)}.join
     end
-
-
-
 
 end

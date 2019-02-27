@@ -3,6 +3,7 @@ require './lib/encryptor'
 require './lib/keygen'
 require './lib/decryptor'
 require './lib/shifter'
+require './lib/aggregator'
 
 class Enigma
 
@@ -10,6 +11,7 @@ class Enigma
   include Decryptor
   include Shifter
   include KeyGen
+  include Aggregator
 
   attr_reader :alphabet,
               :date
