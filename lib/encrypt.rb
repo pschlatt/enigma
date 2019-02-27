@@ -17,7 +17,7 @@ require './test/test_helper'
 
 
 module Encrypt
-  
+
 
   def setup
     @random = Random.new
@@ -61,6 +61,23 @@ module Encrypt
       else
         letter
       end
+    end
+
+    def rotate_by_four(letters, numbers)
+      letters.map.with_index {|letter, index|
+        letter_encryptor(letter, numbers[index])}
+    end
+
+    def group_together(message)
+      message.split(//).each_slice(4).to_a
+    end
+
+    def total_encryption(message, key, date)
+        working_keys = set_keys(key)
+        working_offsets = set_offset(date)
+        total_shift = complete_shift(working_keys, working_offsets)
+        group_together(message).map {|four_letters|
+          rotate_by_four(four_letters, total_shift)}.join
     end
 
 

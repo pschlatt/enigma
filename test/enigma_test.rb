@@ -71,5 +71,35 @@ class EnigmaTest < Minitest::Test
    assert_equal "!", @enigma.letter_encryptor(letter, number)
  end
 
+ def test_can_rotate_by_four
+   numbers = [3, 27, 73, 20]
+   letters = ['h', 'e', 'l', 'l']
+   expected = ['k', 'e', 'd', 'e']
+   assert_equal expected, @enigma.rotate_by_four(letters, numbers)
+   letters_with_special_char = ['h', 'e', 'l', '!']
+   expected_2 = ['k', 'e', 'd', '!']
+   assert_equal expected_2, @enigma.rotate_by_four(letters_with_special_char, numbers)
+   letters_with_space = ['h', ' ', 'l', 'l']
+   expected_3 = ['k', ' ', 'd', 'e']
+   assert_equal expected_3, @enigma.rotate_by_four(letters_with_space, numbers)
+ end
+
+ def test_can_group_by_four_characters
+   expected = [['h', 'e', 'l', 'l'], ['o', ' ', 'w', 'o'], [ 'r', 'l', 'd', '!']]
+   message = "hello world!"
+   assert_equal expected, @enigma.group_together(message)
+ end
+
+ def test_full_statement_encryption
+
+   message = "hello world"
+   expected = "keder ohulw"
+   key = "02715"
+   date = "040895"
+   assert_equal expected, @enigma.total_encryption(message, key, date)
+ end
+
+
+
 
 end
