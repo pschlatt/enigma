@@ -1,8 +1,9 @@
 require './test/test_helper'
+require './lib/encrypt'
+
 
 class Enigma
-
- include Encrypt
+include Encrypt
 
 
   attr_reader :date,
@@ -20,11 +21,8 @@ class Enigma
   end
 
   def encrypt(message = @message.downcase, key = @randomkey, date = @date)
-
-      
-
       {
-      encryption: message,
+      encryption: encrypt_message,
       key: key,
       date: date
       }

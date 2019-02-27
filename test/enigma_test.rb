@@ -27,6 +27,15 @@ class EnigmaTest < Minitest::Test
     assert_equal 5, @enigma.randomkey.length
   end
 
+  def test_encrypt
+    expected = {
+     encryption: "keder ohulw",
+     key: "02715",
+     date: "040895"
+   }
+   assert_equal expected, @enigma.encrypt
+  end
+
 
 
 end

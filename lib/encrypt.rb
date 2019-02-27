@@ -7,6 +7,7 @@ module Encrypt
     # @key = @random.rand(0..99999).to_s.split("")
     @key = "02715"
     @date = "040895"
+    @alphabet = ("a".."z").to_a << " "
   end
 
   def randomkey
@@ -20,11 +21,11 @@ module Encrypt
 
   def set_keys(key = @key)
     keys_set = Hash.new(0)
-    key_set[:a_k] = key[0..1].to_i
-    key_set[:b_k] = key[1..2].to_i
-    key_set[:c_k] = key[2..3].to_i
-    key_set[:d_k] = key[3..4].to_i
-    key_set
+    keys_set[:a_k] = key[0..1].to_i
+    keys_set[:b_k] = key[1..2].to_i
+    keys_set[:c_k] = key[2..3].to_i
+    keys_set[:d_k] = key[3..4].to_i
+    keys_set
     binding.pry
 
   end
@@ -42,11 +43,33 @@ module Encrypt
 
   def complete_shift(set_key_hash, set_offset_hash)
     total_shift = Hash.new(0)
-    total_shift[:a] = [set_offset_hash[:a_o] + set_key_hash[:a_k]
+    total_shift[:a] = set_offset_hash[:a_o] + set_key_hash[:a_k]
     total_shift[:b] = set_offset_hash[:b_o] + set_key_hash[:b_k]
     total_shift[:c] = set_offset_hash[:c_o] + set_key_hash[:c_k]
     total_shift[:d] = set_offset_hash[:d_o] + set_key_hash[:d_k]
     total_shift
+  end
+
+  def encrypt_letter(letter, number)
+    new_letter = letter.tr(@alphabet.join, @alphabet.rotate(number).join)
+  end
+
+  def encrypt_message(message = "hello world", key = set_keys, date = set_offset)
+    split_message = message.downcase.split(//)
+    encrypted_message = []
+    total_shift = complete_shift(set_key_hash, set_offset_hash)
+    split_message.each_with_index do |letter, index|
+        if index % 4 == 0
+      encrypted_message << encrypt_letter(letter, total_shift[:a])
+    elsif index % 4 == 1
+      encrypted_message << encrypt_letter(letter, total_shift[:b])
+    elsif index % 4 == 2
+      encrypted_message << encrypt_letter(letter, total_shift[:c])
+    elsif index % 4 == 3
+      encrypted_message << encrypt_letter(letter, total_shift[:d])
+      end
+    end
+    encrypted_message.join
   end
 
 end
