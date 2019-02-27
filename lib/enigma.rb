@@ -2,11 +2,13 @@ require './test/test_helper'
 require './lib/encryptor'
 require './lib/keygen'
 require './lib/decryptor'
+require './lib/shifter'
 
 class Enigma
 
   include Encryptor
   include Decryptor
+  include Shifter
   include KeyGen
 
   attr_reader :alphabet,

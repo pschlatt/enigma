@@ -6,6 +6,21 @@ module Decryptor
   include Encryptor
   include KeyGen
 
+  def complete_backwards_shift(key, offset)
+     back_key = []
+     back_offset = []
+
+     key.each do |x|
+      back_key << (x > 0 ? -x : x)
+     end
+
+     offset.each do |x|
+     back_offset << (x > 0 ? -x : x)
+     end
+
+    [back_key,back_offset].transpose.map{|combination| combination.sum}
+  end
+
   def total_decryption(message, key, date)
     working_keys = set_keys(key)
     working_offsets = set_offset(date)
