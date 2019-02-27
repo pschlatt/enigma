@@ -1,5 +1,21 @@
 require './test/test_helper'
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module Encrypt
 
   def setup
@@ -9,7 +25,7 @@ module Encrypt
     @date = "040895"
     @alphabet = ("a".."z").to_a << " "
   end
-
+#
   def randomkey
     if @key.length < 5
       @key.join.rjust(5, "0")
@@ -17,59 +33,44 @@ module Encrypt
       @key.join
     end
   end
-
-
+#
+#
   def set_keys(key = @key)
-    keys_set = Hash.new(0)
-    keys_set[:a_k] = key[0..1].to_i
-    keys_set[:b_k] = key[1..2].to_i
-    keys_set[:c_k] = key[2..3].to_i
-    keys_set[:d_k] = key[3..4].to_i
-    keys_set
-    binding.pry
-
+    key = key.split(//).each_cons(2).to_a
+    join_keys = key.map {|var| var.join}
+    join_keys.map { |string| string.to_i }
   end
 
   def set_offset(date = @date)
-    offset_set = Hash.new(0)
-    int_date = date.to_i
-    date_squared_last_four = (int_date*int_date).to_s[-4..-1]
-    offset_set[:a_o] = date_squared_last_four[0].to_i
-    offset_set[:b_o] = date_squared_last_four[1].to_i
-    offset_set[:c_o] = date_squared_last_four[2].to_i
-    offset_set[:d_o] = date_squared_last_four[3].to_i
-    offset_set
+    date_squared = date.to_i ** 2
+    offset = date_squared.to_s.split(//).to_a.last(4)
+    offset.map {|string| string.to_i}
   end
 
-  def complete_shift(set_key_hash, set_offset_hash)
-    total_shift = Hash.new(0)
-    total_shift[:a] = set_offset_hash[:a_o] + set_key_hash[:a_k]
-    total_shift[:b] = set_offset_hash[:b_o] + set_key_hash[:b_k]
-    total_shift[:c] = set_offset_hash[:c_o] + set_key_hash[:c_k]
-    total_shift[:d] = set_offset_hash[:d_o] + set_key_hash[:d_k]
-    total_shift
+  def complete_shift(key, offset)
+    [key,offset].transpose.map{|combination| combination.sum}
   end
 
   def encrypt_letter(letter, number)
     new_letter = letter.tr(@alphabet.join, @alphabet.rotate(number).join)
   end
 
-  def encrypt_message(message = "hello world", key = set_keys, date = set_offset)
-    split_message = message.downcase.split(//)
-    encrypted_message = []
-    total_shift = complete_shift(set_key_hash, set_offset_hash)
-    split_message.each_with_index do |letter, index|
-        if index % 4 == 0
-      encrypted_message << encrypt_letter(letter, total_shift[:a])
-    elsif index % 4 == 1
-      encrypted_message << encrypt_letter(letter, total_shift[:b])
-    elsif index % 4 == 2
-      encrypted_message << encrypt_letter(letter, total_shift[:c])
-    elsif index % 4 == 3
-      encrypted_message << encrypt_letter(letter, total_shift[:d])
-      end
-    end
-    encrypted_message.join
-  end
-
+  # def encrypt_message(message = "hello world", key = set_keys, date = set_offset)
+  #   split_message = message.downcase.split(//)
+  #   encrypted_message = []
+  #   total_shift = complete_shift(set_key_hash, set_offset_hash)
+  #   split_message.each_with_index do |letter, index|
+  #       if index % 4 == 0
+  #     encrypted_message << encrypt_letter(letter, total_shift[:a])
+  #   elsif index % 4 == 1
+  #     encrypted_message << encrypt_letter(letter, total_shift[:b])
+  #   elsif index % 4 == 2
+  #     encrypted_message << encrypt_letter(letter, total_shift[:c])
+  #   elsif index % 4 == 3
+  #     encrypted_message << encrypt_letter(letter, total_shift[:d])
+  #     end
+  #   end
+  #   encrypted_message.join
+  # end
+#
 end
