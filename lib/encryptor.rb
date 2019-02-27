@@ -1,40 +1,10 @@
-require './test/test_helper'
-require './lib/keygen'
 
 module Encryptor
 
-include KeyGen
-
-  def set_keys(key = randomkey)
-    key = key.split(//).each_cons(2).to_a
-    join_keys = key.map {|var| var.join}
-    join_keys.map { |string| string.to_i }
-  end
-
-  def set_offset(date = @date)
-    date_squared = date.to_i ** 2
-    offset = date_squared.to_s.split(//).to_a.last(4)
-    offset.map {|string| string.to_i}
-  end
 
   def complete_forwards_shift(key, offset)
     [key,offset].transpose.map{|combination| combination.sum}
   end
-
-   def complete_backwards_shift(key, offset)
-      back_key = []
-      back_offset = []
-
-      key.each do |x|
-       back_key << (x > 0 ? -x : x)
-      end
-
-      offset.each do |x|
-      back_offset << (x > 0 ? -x : x)
-      end
-
-     [back_key,back_offset].transpose.map{|combination| combination.sum}
-   end
 
 
     def letter_encryptor(letter, number)
