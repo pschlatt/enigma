@@ -11,11 +11,6 @@ require './test/test_helper'
 
 
 
-
-
-
-
-
 module Encrypt
 
 
@@ -48,9 +43,24 @@ module Encrypt
     offset.map {|string| string.to_i}
   end
 
-  def complete_shift(key, offset)
+  def complete_forwards_shift(key, offset)
     [key,offset].transpose.map{|combination| combination.sum}
   end
+
+   def complete_backwards_shift(key, offset)
+      back_key = []
+      back_offset = []
+
+      key.each do |x|
+       back_key << (x > 0 ? -x : x)
+      end
+
+      offset.each do |x|
+      back_offset << (x > 0 ? -x : x)
+      end
+
+     [back_key,back_offset].transpose.map{|combination| combination.sum}
+   end
 
 
     def letter_encryptor(letter, number)
@@ -75,28 +85,18 @@ module Encrypt
     def total_encryption(message, key, date)
         working_keys = set_keys(key)
         working_offsets = set_offset(date)
-        total_shift = complete_shift(working_keys, working_offsets)
+        total_shift = complete_forwards_shift(working_keys, working_offsets)
         group_together(message).map {|four_letters|
           rotate_by_four(four_letters, total_shift)}.join
     end
 
+    def total_decryption(message, key, date)
+      working_keys = set_keys(key)
+      working_offsets = set_offset(date)
+      total_shift = complete_backwards_shift(working_keys, working_offsets)
+      group_together(message).map {|four_letters|
+        rotate_by_four(four_letters, total_shift)}.join
+    end
 
-  # def encrypt_message(message = "hello world", key = set_keys, date = set_offset)
-  #   split_message = message.downcase.split(//)
-  #   encrypted_message = []
-  #   total_shift = complete_shift(set_key_hash, set_offset_hash)
-  #   split_message.each_with_index do |letter, index|
-  #       if index % 4 == 0
-  #     encrypted_message << encrypt_letter(letter, total_shift[:a])
-  #   elsif index % 4 == 1
-  #     encrypted_message << encrypt_letter(letter, total_shift[:b])
-  #   elsif index % 4 == 2
-  #     encrypted_message << encrypt_letter(letter, total_shift[:c])
-  #   elsif index % 4 == 3
-  #     encrypted_message << encrypt_letter(letter, total_shift[:d])
-  #     end
-  #   end
-  #   encrypted_message.join
-  # end
-#
+
 end
