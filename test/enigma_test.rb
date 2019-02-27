@@ -130,6 +130,10 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, @enigma.decrypt("qnhaxisd u ", "02715", @date)
   end
 
+  def test_for_randomkey
+    assert_equal 5, @enigma.randomkey.length
+  end
+
 
 
 end

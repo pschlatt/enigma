@@ -17,17 +17,22 @@ module Encryptor
   def setup
     @random = Random.new
     @key = @random.rand(0..99999).to_s.split("")
-    @key = "02715"
+    # @key = "02715"
     @date = "040895"
     @alphabet = ("a".."z").to_a << " "
   end
 
+  # def randomkey
+  #   if @key.length < 5
+  #     @key.join.rjust(5, "0")
+  #   else
+  #     @key.join
+  #   end
+  # end
   def randomkey
-    if @key.length < 5
-      @key.join.rjust(5, "0")
-    else
-      @key.join
-    end
+
+    rand(0..99999).to_s.rjust(5, "0")
+    
   end
 
 
