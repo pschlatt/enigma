@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class KeyGen
+module KeyGen
 
   def initialize
     @random = Random.new
@@ -15,5 +15,5 @@ class KeyGen
     end
   end
 
-  
+
 end
