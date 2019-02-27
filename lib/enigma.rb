@@ -1,10 +1,12 @@
 require './test/test_helper'
-require './lib/encrypt'
+require './lib/encryptor'
 
 class Enigma
 
-  include Encrypt
-  attr_reader :alphabet
+  include Encryptor
+
+  attr_reader :alphabet,
+              :date
 def initialize
   @time = Time.new
   @date = @time.strftime("%d%m%y")

@@ -1,4 +1,5 @@
 require "./test/test_helper"
+require './lib/encryptor'
 
 class EnigmaTest < Minitest::Test
 
@@ -13,7 +14,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_char_set
-    skip
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
       "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
       "w", "x", "y", "z", " "]
@@ -21,15 +21,9 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_for_current_date
-    skip
-    expected = "260219"
-  assert_equal expected, @enigma.date
+  assert_equal @date, @enigma.date
   end
 
-  def test_keygen
-    skip
-    assert_equal 5, @enigma.randomkey.length
-  end
 
   def test_encrypt
     skip
