@@ -27,16 +27,6 @@ class EnigmaTest < Minitest::Test
   assert_equal @date, @enigma.date
   end
 
-
-  def test_encrypt
-    expected = {
-     encryption: "keder ohulw",
-     key: "02715",
-     date: "040895"
-   }
-   assert_equal expected, @enigma.encrypt
-  end
-
   def test_set_keys
     assert_equal [2, 27, 71, 15], @enigma.set_keys("02715")
   end

@@ -5,17 +5,6 @@ module Encryptor
 
 include KeyGen
 
-  def setup
-    # @random = Random.new
-    # @key = @random.rand(0..99999).to_s.split("")
-    # @key = "02715"
-    @date = "040895"
-    @alphabet = ("a".."z").to_a << " "
-  end
-
-
-
-
   def set_keys(key = randomkey)
     key = key.split(//).each_cons(2).to_a
     join_keys = key.map {|var| var.join}
@@ -75,7 +64,7 @@ include KeyGen
           rotate_by_four(four_letters, total_shift)}.join
     end
 
-    
+
 
 
 end
