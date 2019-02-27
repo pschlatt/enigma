@@ -1,6 +1,6 @@
 # Enigma
 
-- Turing School of Software & Design: build an encryption machine based loosely on the ancient <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar Cipher</a> that can both encrypt and decrypt messages via an algorithm associated with a date and key.
+- Turing School of Software & Design Mod 1 Final: build an encryption machine loosely based on the ancient <a href="https://en.wikipedia.org/wiki/Caesar_cipher">Caesar Cipher</a>, that can both encrypt and decrypt messages via an algorithm associated with a date and key.
 ## Algorithm
 - [This](http://backend.turing.io/module1/projects/enigma/encryption) is the interaction pattern we were provided to make the encryptor/decryptor.
 ## Command Line Operation:
