@@ -15,3 +15,9 @@ Created 'decrypted.txt' with the key 82648 and date 240818
 ```
 ### Clone Repo Locally with SSH
 `$ git clone git@github.com:pschlatt/enigma.git`
+
+### Self Assessment
+####Functionality: 3
+####OOP: 3
+####TDD: 3
+####Version Control: 3
