@@ -17,6 +17,7 @@ require './test/test_helper'
 
 
 module Encrypt
+  
 
   def setup
     @random = Random.new
@@ -51,9 +52,17 @@ module Encrypt
     [key,offset].transpose.map{|combination| combination.sum}
   end
 
-  def encrypt_letter(letter, number)
-    new_letter = letter.tr(@alphabet.join, @alphabet.rotate(number).join)
-  end
+
+    def letter_encryptor(letter, number)
+      if @alphabet.include?(letter)
+        index = @alphabet.find_index(letter)
+        shifted_char = @alphabet.rotate(number)
+        shifted_char[index]
+      else
+        letter
+      end
+    end
+
 
   # def encrypt_message(message = "hello world", key = set_keys, date = set_offset)
   #   split_message = message.downcase.split(//)

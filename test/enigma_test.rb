@@ -50,9 +50,26 @@ class EnigmaTest < Minitest::Test
   def test_complete_shift
     arg1 = @enigma.set_keys("02715")
     arg2 = @enigma.set_offset("040895")
-    assert_equal [3, 27, 73, 20], @enigma.complete_shift( arg1, arg2)
+    assert_equal [3, 27, 73, 20], @enigma.complete_shift(arg1, arg2)
   end
 
+ def test_message
+   number = 3
+   letter = "h"
+   assert_equal "k", @enigma.letter_encryptor(letter, number)
+ end
+
+ def test_message_loop_around
+   number = 27
+   letter = "e"
+   assert_equal "e", @enigma.letter_encryptor(letter, number)
+ end
+
+ def test_can_it_ignore_special_char
+   number = 5
+   letter = "!"
+   assert_equal "!", @enigma.letter_encryptor(letter, number)
+ end
 
 
 end
