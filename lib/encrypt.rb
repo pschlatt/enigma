@@ -17,4 +17,4 @@ encrypted = enigma_in.encrypt(message_to_be_encrypted, key, date)
 writer.write(encrypted[:encryption])
 writer.close
 
-p "Created #{writer} with the key: #{encrypted[:key]} and date: #{encrypted[:date]}."
+p "Created '#{writer}' with the key: #{encrypted[:key]} and date: #{encrypted[:date]}."

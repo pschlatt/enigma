@@ -1,4 +1,3 @@
-require './test/test_helper'
 require './lib/encryptor'
 require './lib/keygen'
 require './lib/decryptor'
@@ -41,14 +40,3 @@ end
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
