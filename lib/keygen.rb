@@ -1,19 +1,7 @@
-require './test/test_helper'
-
 module KeyGen
 
-  def initialize
-    @random = Random.new
-    @key = @random.rand(0..99999).to_s.split("")
-  end
-
   def randomkey
-    if @key.length < 5
-      @key.join.rjust(5, "0")
-    else
-      @key.join
-    end
+    rand(0..99999).to_s.rjust(5, "0")
   end
-
 
 end

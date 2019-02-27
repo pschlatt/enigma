@@ -4,14 +4,19 @@ class EnigmaTest < Minitest::Test
 
   def setup
     @enigma = Enigma.new
+    @time = Time.new
+    @date = @time.strftime("%d%m%y")
   end
 
   def test_for_instance
     assert_instance_of Enigma, @enigma
   end
 
+  def test_for_randomkey
+    assert_equal 5, @enigma.randomkey.length
+  end
+
   def test_char_set
-    skip
     expected = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
       "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
       "w", "x", "y", "z", " "]
@@ -19,18 +24,11 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_for_current_date
-    skip
-    expected = "260219"
-  assert_equal expected, @enigma.date
+  assert_equal @date, @enigma.date
   end
 
-  def test_keygen
-    skip
-    assert_equal 5, @enigma.randomkey.length
-  end
 
   def test_encrypt
-    skip
     expected = {
      encryption: "keder ohulw",
      key: "02715",
@@ -50,7 +48,7 @@ class EnigmaTest < Minitest::Test
   def test_complete_shift
     arg1 = @enigma.set_keys("02715")
     arg2 = @enigma.set_offset("040895")
-    assert_equal [3, 27, 73, 20], @enigma.complete_shift(arg1, arg2)
+    assert_equal [3, 27, 73, 20], @enigma.complete_forwards_shift(arg1, arg2)
   end
 
  def test_message
@@ -91,7 +89,6 @@ class EnigmaTest < Minitest::Test
  end
 
  def test_full_statement_encryption
-
    message = "hello world"
    expected = "keder ohulw"
    key = "02715"
@@ -99,7 +96,52 @@ class EnigmaTest < Minitest::Test
    assert_equal expected, @enigma.total_encryption(message, key, date)
  end
 
+ def test_encrypt
+   expected = {
+    encryption: "keder ohulw",
+    key: "02715",
+    date: "040895"
+  }
+  assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
+ end
 
+  def test_decrypt
+   expected = {
+     decryption: "hello world",
+     key: "02715",
+     date: "040895"
+   }
+   assert_equal expected, @enigma.decrypt("keder ohulw", "02715", "040895")
+  end
 
+  def test_encrypt_todays_date
+    expected = {
+     encryption: "qnhaxisd u ",
+     key: "02715",
+     date: @date
+    }
+    assert_equal expected, @enigma.encrypt("hello world", "02715", @date)
+  end
+
+  def test_decrypt_todays_date
+    expected = {
+     decryption: "hello world",
+     key: "02715",
+     date: @date
+    }
+    assert_equal expected, @enigma.decrypt("qnhaxisd u ", "02715", @date)
+  end
+
+  def test_encrypt_todays_date_and_random_key
+    assert_equal String, @enigma.encrypt("it'ya boi, paul", @enigma.randomkey, @date)[:encryption].class
+    returned = @enigma.encrypt("it'ya boi, paul", "02715", @date)[:encryption].length
+    assert_equal 15, returned
+  end
+
+  def test_decrypt_todays_date_and_random_key
+   assert_equal String, @enigma.decrypt("do not please", @enigma.randomkey, @date)[:decryption].class
+   returned = @enigma.decrypt("do not please", "02715", @date)[:decryption].length
+   assert_equal 13, returned
+  end
 
 end
